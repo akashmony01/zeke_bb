@@ -10,7 +10,7 @@ import alpinejs from '@astrojs/alpinejs';
 
 // https://astro.build/config
 export default defineConfig({
-    site: '',
+    site: 'https://example.com',
     integrations: [mdx(), sitemap(), alpinejs()],
     vite: {
         plugins: [tailwindcss()],
