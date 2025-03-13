@@ -10,7 +10,7 @@ import alpinejs from '@astrojs/alpinejs';
 
 // https://astro.build/config
 export default defineConfig({
-    site: 'https://dcfeab27.zeke-b.pages.dev/',
+    site: '',
     integrations: [mdx(), sitemap(), alpinejs()],
     vite: {
         plugins: [tailwindcss()],
