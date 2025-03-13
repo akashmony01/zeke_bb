@@ -1,0 +1,66 @@
+---
+interface Props {
+	id: string;
+    title: string;
+    desc?: string;
+    link: string;
+    source?: string,
+    categories?: string[],
+    is_active?: boolean
+}
+
+const { id, title, desc, link, source, categories=[], is_active=false } = Astro.props;
+---
+
+
+<div x-data="{ active: false }"  x-init=`active = ${is_active}` class="py-5">
+    <div class="flex items-start gap-5 justify-between">
+        <h3 @click="active = !active" class="font-semibold btn leading-snug">
+            {title}
+            <span class="text-secondary">
+                ({id})
+            </span>
+        </h3>
+        <div class="flex gap-4 items-start">
+            <a href={link} class="text-primary font-semibold capitalize leading-tight whitespace-nowrap" target="_blank">
+                Check Link
+            </a>
+            <button 
+                type="button" 
+                @click="active = !active"
+                class="block text-primary transform mt-0.5"
+                :class="{ 'rotate-180': active }"
+            >
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="size-4">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+                </svg>                  
+            </button>
+        </div>
+    </div>
+    <div 
+        class="block space-y-2 overflow-hidden max-h-0 duration-300 no-scrollbar"
+        :class="{ 'mt-3 max-h-screen overflow-y-auto': active }"
+    >
+        {desc &&
+        <article class="space-y-3 text-secondary leading-normal">
+            {desc}
+        </article>
+        }
+        <p>
+            Link:
+            <a href={link} class="text-primary leading-none" target="_blank">
+                {link}
+            </a>
+        </p>
+        <a href=`/links/id/${id}` class="mt-4 bg-primary text-white px-4 py-2 rounded-full font-semibold inline-flex gap-1 items-center">
+            <span class="block">
+                More Deatils
+            </span>
+            <span class="block">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="size-4">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+                </svg>                  
+            </span>
+        </a>
+    </div>
+</div>

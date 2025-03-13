@@ -1,0 +1,151 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+
+/*
+  The CSS in this style tag is based off of Bear Blog's default CSS.
+  https://github.com/HermanMartinus/bearblog/blob/297026a877bc2ab2b3bdfbd6b9f7961c350917dd/templates/styles/blog/default.css
+  License MIT: https://github.com/HermanMartinus/bearblog/blob/master/LICENSE.md
+ */
+
+
+@font-face {
+	font-family: 'Lobster_Two';
+	src: url('/fonts/Lobster_Two/LobsterTwo-regular.ttf');
+	font-weight: 400;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Lobster_Two';
+	src: url('/fonts/Lobster_Two/LobsterTwo-Bold.ttf');
+	font-weight: 800;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Work_Sans';
+	src: url('/fonts/Work_Sans/WorkSans-Thin.ttf');
+	font-weight: 300;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Work_Sans';
+	src: url('/fonts/Work_Sans/WorkSans-Regular.ttf');
+	font-weight: 400;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Work_Sans';
+	src: url('/fonts/Work_Sans/WorkSans-Medium.ttf');
+	font-weight: 500;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Work_Sans';
+	src: url('/fonts/Work_Sans/WorkSans-SemiBold.ttf');
+	font-weight: 600;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Work_Sans';
+	src: url('/fonts/Work_Sans/WorkSans-Bold.ttf');
+	font-weight: 800;
+	font-style: normal;
+	font-display: swap;
+}
+
+@theme {
+	--color-primary: #008080;
+	--color-secondary: #545454;
+	--color-lightText: #fff;
+	--color-darkText: #000;
+
+	--font-sans: "Work_Sans", "sans-serif";
+	--font-lobster: "Lobster_Two", "sans-serif";
+
+
+}
+
+@layer base{	
+	html,
+	body {
+		scroll-behavior: smooth;
+		@apply text-darkText font-sans font-normal antialiased;
+	}
+
+	a,
+	.btn,
+	.button,
+	button {
+		@apply duration-300 cursor-pointer hover:opacity-80;
+	}
+
+	.under_header_index {
+		z-index: 99997;
+	}
+
+	.header_index {
+		z-index: 99998;
+	}
+
+	.above_header_index {
+		z-index: 99999;
+	}
+
+	.pagefind-ui__form::before {
+		@apply !hidden;
+	}
+
+	.pagefind-ui__search-input {
+		@apply w-full !pl-5 !pr-12 !py-2 !border 
+		!border-primary/50 !rounded-full !outline-none focus:!outline-none 
+		focus:!border-primary !duration-300 !text-primary
+		!h-auto placeholder:!text-primary placeholder:!font-[400] placeholder:!opacity-60;
+	}
+
+	.pagefind-ui__drawer {
+		z-index: 99997!important;
+		@apply !absolute !top-full !left-0 w-full !bg-gray-100 !px-5 !rounded-lg !shadow-md;
+	}
+
+	.doubleWidthResult .pagefind-ui__drawer {
+		@apply sm:!w-[204%];
+	}
+
+	.pagefind-ui__search-input:not(:focus) ~ .pagefind-ui__drawer:not(:hover) {
+		@apply !hidden;
+	}
+
+	.pagefind-ui__search-clear {
+		@apply !h-[90%] !rounded-full;
+	}
+
+	.pagefind-ui__message {
+		@apply !pt-0;
+	}
+
+	.pagefind-ui__result:first-child {
+		@apply !pt-0;
+	}
+}
+
+@layer utilities {
+	.no-scrollbar::-webkit-scrollbar {
+		display: none;
+	}
+	.no-scrollbar {
+		-ms-overflow-style: none;
+		scrollbar-width: none;
+  }
+}

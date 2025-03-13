@@ -1,0 +1,82 @@
+---
+import Base from '../../../layouts/Base.astro';
+
+import { SITE_TITLE, SITE_DESCRIPTION } from '../../../consts';
+
+import { fetchGoogleSheetData } from "../../../links.ts";
+
+export async function getStaticPaths() {
+  const { all_links } = await fetchGoogleSheetData();
+
+  return all_links.map((link) => ({
+    params: { id: link["Link #"] }, // Generates URL like /links/id-2
+    props: { link }, // Passes data to the page
+  }));
+}
+
+const { link } = Astro.props;
+---
+
+<Base title={link.title} description={SITE_DESCRIPTION}>
+	<section data-pagefind-body class="my-12 md:my-14 min-h-[70vh]">
+		<div class="container max-w-screen-md mx-auto px-4 prose max-w-full prose prose-headings:font-semibold">
+			<a href="/links/" class="inline-block text-primary font-semibold uppercase no-underline mb-5">
+				LINKS
+			</a>
+			<h1 data-pagefind-weight-7 class="text-darkText font-semibold">
+				{link.Title}
+			</h1>
+						
+			<div class="flex gap-6 flex wrap text-xl font-medium">
+				{link['Link #'] &&
+				<p>
+					<span class="text-darkText">
+						Link Id:
+					</span>
+					{link['Link #']}
+				</p>
+				}
+				{link.Source &&
+				<p class="">
+					<span class="text-darkText">
+						Link Source:
+					</span>
+					<span class="text-secondary">
+						{link.Source}
+					</span>
+				</p>
+				}
+			</div>
+
+			{link.Description &&
+			<article class="space-y-3 text-secondary leading-normal text-lg">
+				{link.Description}
+			</article>
+			}
+
+			<p class="text-lg">
+				<span class="text-darkText">Link:</span>
+				<a href={link.Link} class="text-primary leading-none" target="_blank">
+					{link.Link}
+				</a>
+			</p>
+
+			{link.Categories.length > 0 &&
+				<div class="flex items-start gap-x-4 text-lg">
+					<p class="pl-0 text-darkText m-0">
+						Categories:
+					</p>
+					<ul class="flex flex-wrap gap-x-3 items-center list-none pl-0">
+						{link.Categories.map((category, index) => (
+						<li class="text-secondary pl-0 !m-0">
+							<a href=`/links/category/${category}` class="hover:text-primary hover:opacity-100 no-underline hover:text-primary text-secondary">
+								{category}{index < link.Categories.length - 1 && ','}
+							</a>
+						</li>
+						))}
+					</ul>
+				</div>
+			}
+		</div>
+	</section>
+</Base>

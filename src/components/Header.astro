@@ -1,0 +1,65 @@
+---
+import HeaderLink from './HeaderLink.astro';
+import { SITE_TITLE } from '../consts';
+
+interface Props {
+	clear_bg?: boolean;
+}
+
+const { clear_bg=false } = Astro.props;
+---
+
+<header 
+	x-data="{ expanded: false }"
+	class={`
+		${clear_bg ? 'bg-transparent' : 'bg-primary'}
+		header_index bg-primary text-lightText flex flex-col items-center justify-center h-20 sticky
+	`}
+>
+	<div class="container max-w-screen-lg mx-auto px-4 flex items-center justify-between gap-5">
+		<a href="/" class="font-lobster uppercase font-bold text-[30px] hover:opacity-80">
+			ZB
+		</a>
+		<nav 
+			id="navMenu"
+			class="
+				fixed md:static
+				top-0 left-0 right-0 bottom-0
+				bg-primary md:bg-transparent
+				hidden md:grid
+				place-items-center overflow-y-auto
+				p-5 md:p-0 under_header_index
+			"
+			:class="{ '!grid': expanded }"
+		>
+			<div class="flex items-center gap-5 flex-col md:flex-row">
+				<HeaderLink href="/">Home</HeaderLink>
+				<HeaderLink href="/about">About</HeaderLink>
+				<HeaderLink href="/links">Links</HeaderLink>
+				<HeaderLink href="/blog">Blog</HeaderLink>
+			</div>
+		</nav>
+		
+		<button 
+			type="button"
+			@click="expanded = true"
+			class="block md:hidden cursor-pointer transform duration-300"
+			:class="{ 'opacity-0 rotate-180 invisible': expanded }"
+		>
+			<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-7">
+				<path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+			</svg>			
+		</button>
+
+		<button 
+			type="button"
+			@click="expanded = false"
+			class="above_header_index fixed top-6 right-4 md:hidden cursor-pointer transform opacity-0 duration-300 invisible"
+			:class="{ 'opacity-100 rotate-180 !visible': expanded }"
+		>
+			<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-7">
+				<path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+			</svg>					
+		</button>
+	</div>
+</header>

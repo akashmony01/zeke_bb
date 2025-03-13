@@ -1,0 +1,77 @@
+---
+import LinkItem from '../LinkItem.astro';
+import Pagination from '../../components/Pagination.astro';
+
+interface Props {
+    links: object[];
+    categories: string[]
+}
+
+const { links, categories } = Astro.props;
+---
+
+
+<section class="my-20 md:my-24">
+    <div class="container max-w-screen-md mx-auto px-4">
+        <div class="flex flex-col sm:flex-row items-center gap-4">
+            <div class="w-full doubleWidthResult">
+                <label class="block text-secondary mb-2 text-sm">
+                    Search by link keyword
+                </label>
+                <div id="search"></div>
+            </div>
+            <form id="numberForm" class="w-full">
+                <label class="block text-secondary mb-2 text-sm">
+                    Search by link serial number
+                </label>
+                <div class="relative">
+                    <input
+                        class="w-full pl-5 pr-24 py-2 border border-primary/50 rounded-full outline-none focus:outline-none focus:border-primary duration-300 text-primary"
+                        type="number"
+                        id="numberInput"
+                        placeholder="Ex: 42"
+                        required
+                        name="number"
+                        min="1"
+                    />
+                    <button 
+                        type="submit"
+                        class="absolute top-0 right-0 bottom-0 bg-primary text-white px-5 rounded-full"
+                    >
+                        Search
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        {categories.length > 0 &&
+        <div class="mt-8 mb-10 flex items-start gap-x-4">
+            <p>
+                Categories:
+            </p>
+            <ul class="flex items-center flex-wrap gap-x-3">
+                {categories.map((category, index) => (
+                <li>
+                    <a href=`/links/category/${category}` class="text-primary">
+                        {category}{index < categories.length - 1 && ','}
+                    </a>
+                </li>
+                ))}
+            </ul>
+        </div>
+        }
+        
+        <div class="mt-6 border-t border-secondary/50 divide-y divide-secondary/50">
+            {links.map((link) => (
+                <LinkItem
+                    id={link['Link #']}
+                    title={link['Title']}
+                    desc={link['Description']}
+                    link={link['Link']}
+                    source={link['Source']}
+                    categories={link['Categories']}
+                />
+            ))}
+        </div>
+    </div>
+</section>

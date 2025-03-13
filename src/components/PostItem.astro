@@ -1,0 +1,40 @@
+---
+import FormattedDate from './FormattedDate.astro';
+
+interface Props {
+    title: string;
+    desc?: string;
+    link: string;
+    date: Date;
+    image?: string
+}
+
+const { title, desc, link, date, image } = Astro.props;
+---
+
+<a href={link} class="block">
+    <figure class="w-full aspect-video bg-primary/20">
+        {image &&
+        <img 
+            class="w-full h-full object-cover object-center"
+            src={image}
+            alt=""
+        />
+        }
+    </figure>
+    <article class="mt-5 space-y-2">
+        <h3 class="font-semibold leading-snug">
+            {title.slice(0, 35)}..
+        </h3>
+        {desc &&
+        <div class="text-secondary leading-normal">
+            {desc.slice(0, 70)}..
+        </div>
+        }
+        {date &&
+        <p>
+            <FormattedDate date={date} />
+        </p>
+        }
+    </article>
+</a>

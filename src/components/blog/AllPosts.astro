@@ -1,0 +1,35 @@
+---
+import PostItem from '../PostItem.astro';
+import Pagination from '../../components/Pagination.astro';
+
+interface Props {
+    page: object[];
+}
+
+const { page } = Astro.props;
+---
+
+<section class="my-20 md:my-24">
+    <div class="container max-w-screen-md mx-auto px-4">
+        <div class="w-full">
+            <label class="block text-secondary mb-2 text-sm">
+                Search by link keyword
+            </label>
+            <div id="search"></div>
+        </div>
+
+        <div class="mt-12 md:mt-14 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-y-8 gap-x-5">
+            { page.data.map((post) => (
+                <PostItem
+                    title={post.data.title}
+                    link={`/blog/${post.id}/`}
+                    image={post.data.heroImage}
+                    desc={post.data.description}
+                    date={post.data.pubDate}
+                />
+            ))}
+        </div>
+
+        <Pagination page={page} extra_class='mt-20' />
+    </div>
+</section>

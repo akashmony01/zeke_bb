@@ -1,0 +1,60 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+
+interface Props {
+	title: string;
+	description: string;
+	clear_bg_header?: boolean;
+}
+
+const { title, description, clear_bg_header=false } = Astro.props;
+---
+
+<html lang="en">
+	<head>
+		<BaseHead title={title} description={description} />
+	</head>
+
+	<body>
+		<Header clear_bg={clear_bg_header} />
+
+		<main>
+            <slot />
+		</main>
+
+		<Footer />
+	</body>
+	
+	<script>
+		window.addEventListener("DOMContentLoaded", (event) => {
+			new PagefindUI({ element: "#search", 
+				showSubResults: false,
+				showImages: false,
+				showEmptyFilters: false,
+				excerptLength: 15,
+				resetStyles: false,
+				translations: {
+					placeholder: "Ex: Politics",
+				}
+			});
+		});
+	</script>
+
+	<script is:inline>
+		let numberForm = document.getElementById("numberForm");
+		
+		if (numberForm){ 
+			numberForm.addEventListener("submit", function(event) {
+				event.preventDefault(); // Prevent default form submission
+		
+				const number = document.getElementById("numberInput").value; // Get the input value
+				const url = `/links/id-${number}`; // Construct the URL
+		
+				window.location.href = url; // Redirect to the new URL
+			});
+		}
+	</script>
+</html>

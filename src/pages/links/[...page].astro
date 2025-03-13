@@ -1,0 +1,26 @@
+---
+import Base from '../../layouts/Base.astro';
+import AllLinks from '../../components/links/AllLinks.astro';
+import DefaultHero from '../../components/DefaultHero.astro';
+
+import BgImage from '../../images/blog-placeholder-about.jpg'
+import { SITE_TITLE, SITE_DESCRIPTION } from '../../consts';
+
+import { fetchGoogleSheetData } from "../../links.ts";
+const {all_categories} = await fetchGoogleSheetData();
+
+export async function getStaticPaths({ paginate }) {
+
+    const {all_links} = await fetchGoogleSheetData();
+    
+    // Return a paginated collection of paths for all items
+    return paginate(all_links, { pageSize: 3 });
+}
+
+const { page } = Astro.props;
+---
+
+<Base title="All Links Page" description={SITE_DESCRIPTION} clear_bg_header={true}>
+    <DefaultHero bg_img={BgImage} title="All Links" />
+    <AllLinks page={page} categories={all_categories} />
+</Base>

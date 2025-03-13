@@ -1,0 +1,18 @@
+---
+import Base from '../layouts/Base.astro';
+import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+import Hero from '../components/home/HeroSection.astro';
+import Links from '../components/home/LinksSection.astro';
+import Posts from '../components/home/PostsSection.astro';
+
+import { fetchGoogleSheetData } from "../links.ts";
+const {all_links, all_categories} = await fetchGoogleSheetData();
+
+const recent_links = all_links.slice(0, 5);
+---
+
+<Base title={SITE_TITLE} description={SITE_DESCRIPTION}>
+	<Hero />
+	<Links links={recent_links} />
+	<Posts />
+</Base>

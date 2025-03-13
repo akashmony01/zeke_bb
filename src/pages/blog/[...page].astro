@@ -1,0 +1,28 @@
+---
+import Base from '../../layouts/Base.astro';
+import FormattedDate from '../../components/FormattedDate.astro';
+import DefaultHero from '../../components/DefaultHero.astro';
+import AllPosts from '../../components/blog/AllPosts.astro';
+
+import { SITE_TITLE, SITE_DESCRIPTION } from '../../consts';
+import { getCollection } from 'astro:content';
+import BgImage from '../../images/blog-placeholder-2.jpg'
+
+
+export async function getStaticPaths({ paginate }) {
+	const posts = (await getCollection('blog')).sort(
+		(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+	);
+
+  // Return a paginated collection of paths for all items
+  return paginate(posts, { pageSize: 3 });
+}
+
+const { page } = Astro.props;
+---
+
+
+<Base title="Blog Index Page" description={SITE_DESCRIPTION} clear_bg_header={true}>
+	<DefaultHero bg_img={BgImage} title="Blog Posts" />
+	<AllPosts page={page} />
+</Base>

@@ -1,0 +1,55 @@
+---
+import Base from '../layouts/Base.astro';
+import { SITE_DESCRIPTION } from '../consts';
+import Socials from '../components/SocialLinks.astro';
+---
+
+<Base title="About Page" description={SITE_DESCRIPTION}>
+	<section class="block">
+		<div class="relative before:absolute before:top-0 before:left-0 before:right-0 before:bottom-[36%] before:bg-primary before:z-0 pt-12 md:pt-20">
+			<figure class="container max-w-screen-md mx-auto px-4 sticky z-1">
+				<img
+					class="mx-auto w-7/12 sm:w-5/12 aspect-square rounded-full object-cover object-center shadow-sm shadow-lightText border border-4 sm:border-8 border-primary"
+					src="/author_image.png"
+					alt="author logo"
+				/>
+			</figure>
+		</div>
+		<div class="container max-w-screen-md mx-auto px-4 my-20 md:my-24">
+			<article class="space-y-4 text-secondary prose-base prose-headings:text-primary prose-headings:font-semibold max-w-full">
+				<h1>
+					Welcome to my blog!
+				</h1>
+				<p>
+					Nikhil Chopra is a retired Indian cricketer. He played as a right-handed
+					batsman and a right-arm offbreak bowler. A One Day International
+					specialist, he was part of the Indian team at the 1999 Cricket World Cup.
+				</p>
+				<h2>
+					This is the first heading
+				</h2>
+				<img 
+					src="/blog-placeholder-1.jpg" 
+					alt="News Image" 
+					class="float-left w-full sm:w-6/12 md:w-1/3 mr-4 rounded-md"
+				>
+				<p>
+					Nikhil Chopra is a retired Indian cricketer. He played as a right-handed batsman and a right-arm offbreak bowler. A One Day International specialist, he was part of the Indian team at the 1999 Cricket World Cup.
+				</p>
+				<p>
+					Nikhil Chopra is a retired Indian cricketer. He played as a right-handed batsman and a right-arm offbreak bowler. A One Day International specialist, he was part of the Indian team at the 1999 Cricket World Cup.
+				</p>
+				<h3>
+					Second heading
+				</h3>
+				<p>
+					Nikhil Chopra is a retired Indian cricketer. He played as a right-handed batsman and a right-arm offbreak bowler. A One Day International specialist, he was part of the Indian team at the 1999 Cricket World Cup.
+				</p>
+				<p>
+					Nikhil Chopra is a retired Indian cricketer. He played as a right-handed batsman and a right-arm offbreak bowler. A One Day International specialist, he was part of the Indian team.
+				</p>
+			</article>
+			<Socials extra_class="mt-14 md:mt-16 justify-center" />
+		</div>
+	</section>
+</Base>

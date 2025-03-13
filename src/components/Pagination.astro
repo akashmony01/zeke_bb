@@ -1,0 +1,64 @@
+---
+interface Props {
+	page: object;
+    extra_class? : string;
+    item_type: string;
+}
+
+const { page, extra_class, item_type='blog' } = Astro.props;
+---
+
+<ul class={extra_class+" flex items-center justify-center gap-5 font-bold"}>
+    {page.url.prev &&
+    <li>
+        <a href={page.url.prev} class="text-primary uppercase flex items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" class="size-5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
+            </svg>
+            Prev
+        </a>
+    </li>
+    }
+    {page.lastPage > 1 &&
+    <li>
+        <a href={page.url.first} class={`${page.currentPage == 1 ? 'text-darkText' : 'text-primary'}`}>
+            1
+        </a>
+    </li>
+    }
+
+    {page.lastPage > 2 &&
+    <li>
+        <a href=`/${item_type}/2` class={`${page.currentPage == 2 ? 'text-darkText' : 'text-primary'}`}>
+            2
+        </a>
+    </li>
+    <li>
+        ...
+    </li>
+    }
+
+    {page.lastPage > 3 &&
+    <li>
+        <a href=`/${item_type}/${page.lastPage - 1}` class={`${page.currentPage == page.lastPage - 1 ? 'text-darkText' : 'text-primary'}`}>
+            {page.lastPage - 1}
+        </a>
+    </li>
+    }
+
+    {page.url.next &&            
+    <li>
+        <a href={page.url.last} class={`${page.currentPage == page.lastPage ? 'text-darkText' : 'text-primary'}`}>
+            {page.lastPage}
+        </a>
+    </li>
+    <li>
+        <a href={page.url.next} class="text-primary uppercase flex items-center">
+            Next
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" class="size-5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+            </svg>                      
+        </a>
+    </li>
+    }
+</ul>

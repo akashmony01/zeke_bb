@@ -1,0 +1,45 @@
+---
+import Base from '../../layouts/Base.astro';
+import { type CollectionEntry, getCollection } from 'astro:content';
+// import BlogPost from '../../layouts/BlogPost.astro';
+import { render } from 'astro:content';
+
+import { SITE_TITLE, SITE_DESCRIPTION } from '../../consts';
+
+export async function getStaticPaths() {
+	const posts = await getCollection('blog');
+	return posts.map((post) => ({
+		params: { slug: post.id },
+		props: post,
+	}));
+}
+type Props = CollectionEntry<'blog'>;
+
+const post = Astro.props;
+const { Content } = await render(post);
+---
+
+<Base title={post.title} description={SITE_DESCRIPTION}>
+	<section data-pagefind-body class="my-12 md:my-14">
+		<div class="container max-w-screen-md mx-auto px-4 prose max-w-full prose prose-headings:font-semibold">
+			<a href="/blog/" class="inline-block text-primary font-semibold uppercase no-underline mb-5">
+				BLOG
+			</a>
+			<h1 data-pagefind-weight-6 class="text-darkText font-semibold">
+				{post.data.title}
+			</h1>
+			{post.data.heroImage &&
+			<figure class="w-full">
+				<img 
+					class="w-full h-auto"
+					src={post.data.heroImage}
+					alt={post.data.title}
+				/>
+			</figure>
+			}
+			<article>
+				<Content />
+			</article>
+		</div>
+	</section>
+</Base>

@@ -1,0 +1,69 @@
+---
+import LinkItem from '../LinkItem.astro';
+
+const { links, categories, LinkItemType } = Astro.props;
+
+interface Props {
+    links: LinkItemType[];
+}
+---
+<!-- {JSON.stringify(links[0])} -->
+
+<section class="my-20 md:my-24">
+    <div class="container max-w-screen-md mx-auto px-4">
+        <div class="flex items-center gap-5 flex-col lg:flex-row justify-between">
+            <h2 class="lg:mt-7 w-full lg:w-4/12 font-semibold text-lg md:text-[20px] text-primary leading-none">
+                Find References
+            </h2>
+            <div class="w-full lg:flex-4/12 flex flex-col sm:flex-row items-center gap-4">
+                <div class="w-full doubleWidthResult">
+                    <label class="block text-secondary mb-2 text-sm">
+                        Search by link keyword
+                    </label>
+                    <div id="search"></div>
+                </div>
+                <div class="w-full">
+                    <label class="block text-secondary mb-2 text-sm">
+                        Search by link serial number
+                    </label>
+                    <form id="numberForm" class="relative">
+                        <input
+                            class="w-full pl-5 pr-12 py-2 border border-primary/50 rounded-full outline-none focus:outline-none focus:border-primary duration-300 text-primary"
+                            type="number"
+                            id="numberInput"
+                            placeholder="Ex: 42"
+                            required
+                            name="number"
+                            min="1"
+                        />
+                        <button 
+                            type="submit"
+                            class="absolute top-0 right-0 bottom-0 bg-primary text-white px-3 rounded-full"
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="size-5">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+                            </svg>                          
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="mt-10 border-t border-secondary/50 divide-y divide-secondary/50">
+            {links.map((link) => (
+                <LinkItem
+                    id={link['Link #']}
+                    title={link['Title']}
+                    desc={link['Description']}
+                    link={link['Link']}
+                    source={link['Source']}
+                    categories={link['Categories']}
+                />
+            ))}
+        </div>
+        <div class="mt-12 text-center">
+            <a href="/links" class="inline-block bg-primary text-white px-10 py-4 rounded-full font-semibold">
+                All Links
+            </a>
+        </div>
+    </div>
+</section>

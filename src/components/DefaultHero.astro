@@ -1,0 +1,22 @@
+---
+interface Props {
+	bg_img?: object;
+    title: string;
+}
+
+const { title, bg_img } = Astro.props;
+---
+
+<section 
+    class="
+        -mt-20 relative bg-cover bg-no-repeat bg-center pb-36 md:pb-40 pt-40 md:pt-44 bg-primary
+        before:absolute before:top-0 before:left-0 before:bottom-0 before:right-0 before:bg-primary before:opacity-80 z-0
+    "
+    style={`background-image: url('${bg_img.src}');`}
+>
+    <div class="container max-w-screen-md mx-auto px-4 sticky z-1">
+        <h1 class="font-semibold text-white text-[20px] md:text-[25px] uppercase text-center">
+            {title}
+        </h1>
+    </div>
+</section>

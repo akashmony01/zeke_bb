@@ -1,0 +1,31 @@
+---
+import Base from '../../../layouts/Base.astro';
+import DefaultHero from '../../../components/DefaultHero.astro';
+import CategoryLinks from '../../../components/links/CategoryLinks.astro';
+
+import { fetchGoogleSheetData } from "../../../links";
+import BgImage from '../../../images/blog-placeholder-about.jpg'
+
+export async function getStaticPaths() {
+  const { all_links, all_categories } = await fetchGoogleSheetData();
+
+  // Directly map categories (all are valid since filtering is done in links.ts)
+  const paths = all_categories.map(category => ({
+    params: { category },
+    props: {
+      category,
+      links: all_links.filter(link => link.Categories.includes(category)),
+      all_categories: all_categories,
+    }
+  }));
+
+  return paths;
+}
+
+const { category, links, all_categories } = Astro.props;
+---
+
+<Base title={category} description=`Links for ${category}` clear_bg_header={true}>
+  <DefaultHero bg_img={BgImage} title=`Catgeory: ${category}` />
+  <CategoryLinks links={links} categories={all_categories} />
+</Base>
